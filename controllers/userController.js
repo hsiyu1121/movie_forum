@@ -40,6 +40,18 @@ const userController = {
       return res.status(500).redirect('back')
     } 
   },
+  signInPage: (req, res) => {
+    return res.render('signin')
+  },
+  signIn: (req, res) => {
+    req.flash('success_msg', '成功登入')
+    res.redirect('/movies')
+  },
+  logout: (req, res) => {
+    req.flash('success_msg', '成功登出')
+    req.logout()
+    res.redirect('/signin')
+  },
 }
 
 module.exports = userController
