@@ -7,28 +7,37 @@ const userController = {
     return res.render('signup')
   },
   signUp: (req, res) => {
-    const {name, email, password, confirmPassword, role} = req.body
-    if ( !name || !email || !password || !confirmPassword ) {
-      return res.redirect('/signup')
-    }
-    if(password !== confirmPassword ) {
-      return res.redirect('/signup')
-    } else {
-      User.findOne({ where: { email }})
-        .then(user => {
-          if(user) {
-            return res.redirect('/signup')
-          } else {
-            User.create({
-              name, 
-              email, 
-              password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null), 
-              role: 0
-            }).then(user => {
-              return res.redirect('/signin')
-            })
-          }
-        })     
+    try {
+      const {name, email, password, confirmPassword, role} = req.body
+      if ( !name || !email || !password || !confirmPassword ) {
+        req.flash('error_msg', '所有欄位都必須填寫')
+        return res.redirect('/signup')
+      }
+      if(password !== confirmPassword ) {
+        req.flash('error_msg', '密碼和確認密碼錯誤')
+        return res.redirect('/signup')
+      } else {
+        User.findOne({ where: { email }})
+          .then(user => {
+            if(user) {
+              req.flash('error_msg', 'email已註冊')
+              return res.redirect('/signup')
+            } else {
+              User.create({
+                name, 
+                email, 
+                password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null), 
+                role: 0
+              }).then(user => {
+                req.flash('success_msg', '註冊成功')
+                return res.redirect('/signin')
+              })
+            }
+          })     
+      } 
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
     } 
   },
 }
