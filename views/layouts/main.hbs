@@ -14,7 +14,7 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
       </ul>
-      <div>
+      <div class="text-light">
   
         {{#if user.isAdmin}}
         <a href="/admin" style="color: white; margin-right:10px;">Admin 後台</a>
@@ -22,10 +22,10 @@
   
         {{#if user.id}}
         <span style="color: white; margin-right: 10px;">
-          Hi, {{user.email}}
+          Hi, {{user.name}}
         </span>
         <a href="/users/{{user.id}}" style="color: white; margin-right: 10px;">Profile</a>
-        <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0">Logout</button></a>
+        <a href="/logout"><button class="btn btn-outline-light my-2 my-sm-0">Logout</button></a>
         {{/if}}
   
       </div>
