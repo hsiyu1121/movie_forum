@@ -24,6 +24,8 @@ module.exports = (app, passport) => {
 
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
   app.get('/admin/movies', authenticateAdmin, adminController.getMovies)
+  app.get('/admin/create', authenticateAdmin, adminController.createMovie)
+  app.post('/admin/create', authenticateAdmin, adminController.postMovie)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -36,3 +38,11 @@ module.exports = (app, passport) => {
   )
   app.get('/logout', userController.logout)
 }
+
+// 取得新增餐廳的表單	GET /admin/restaurants/create	adminController.createRestaurant
+// 新增一筆餐廳	POST /admin/restaurants	adminController.postRestaurant
+// 瀏覽所有餐廳	GET /admin/restaurants	adminController.getRestaurants
+// 瀏覽一筆餐廳	GET /admin/restaurants/:id	adminController.getRestaurant
+// 取得更新餐廳的表單	GET /admin/restaurants/:id/edit	adminController.editRestaurant
+// 更新一筆餐廳	PUT /admin/restaurants/:id	adminController.putRestaurant
+// 移除一筆餐廳	DELETE /admin/restaurants/:id	adminController.deleteRestaurant

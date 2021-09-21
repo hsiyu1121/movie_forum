@@ -20,6 +20,28 @@ const adminController = {
       return res.status(500).redirect('back')
     }
   },
+  
+  createMovie: (req, res) => {
+    return res.render('admin/create')
+  },
+
+  postMovie: (req, res) => {
+    try {
+      const { title, description, release_date, image } = req.body
+      Movies.create({
+        title, 
+        description, 
+        release_date, 
+        image, 
+      }).then(movie => {
+        return res.redirect('/admin/movies')
+      })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  },
 }
+
 
 module.exports = adminController
