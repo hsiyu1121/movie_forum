@@ -23,9 +23,10 @@ module.exports = (app, passport) => {
   app.get('/movies', authenticate, movieController.getMovies)
 
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
-  app.get('/admin/movies', authenticateAdmin, adminController.getMovies)
   app.get('/admin/create', authenticateAdmin, adminController.createMovie)
   app.post('/admin/create', authenticateAdmin, adminController.postMovie)
+  app.get('/admin/movies', authenticateAdmin, adminController.getMovies)
+  app.get('/admin/movies/:id', authenticateAdmin, adminController.getMovie)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -39,10 +40,9 @@ module.exports = (app, passport) => {
   app.get('/logout', userController.logout)
 }
 
-// 取得新增餐廳的表單	GET /admin/restaurants/create	adminController.createRestaurant
-// 新增一筆餐廳	POST /admin/restaurants	adminController.postRestaurant
-// 瀏覽所有餐廳	GET /admin/restaurants	adminController.getRestaurants
-// 瀏覽一筆餐廳	GET /admin/restaurants/:id	adminController.getRestaurant
-// 取得更新餐廳的表單	GET /admin/restaurants/:id/edit	adminController.editRestaurant
-// 更新一筆餐廳	PUT /admin/restaurants/:id	adminController.putRestaurant
-// 移除一筆餐廳	DELETE /admin/restaurants/:id	adminController.deleteRestaurant
+
+
+// 瀏覽一筆電影	GET /admin/movies/:id	adminController.getMovies
+// 取得更新電影的表單	GET /admin/movies/:id/edit	adminController.editMovie
+// 更新一筆電影	PUT /admin/movies/:id	adminController.putMovie
+// 移除一筆電影 DELETE /admin/movies/:id	adminController.deleteMovie
