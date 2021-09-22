@@ -27,6 +27,8 @@ module.exports = (app, passport) => {
   app.post('/admin/create', authenticateAdmin, adminController.postMovie)
   app.get('/admin/movies', authenticateAdmin, adminController.getMovies)
   app.get('/admin/movies/:id', authenticateAdmin, adminController.getMovie)
+  app.get('/admin/movies/:id/edit', authenticateAdmin, adminController.editMovie)
+  app.put('/admin/movies/:id', authenticateAdmin, adminController.putMovie)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -42,7 +44,7 @@ module.exports = (app, passport) => {
 
 
 
-// 瀏覽一筆電影	GET /admin/movies/:id	adminController.getMovies
+
 // 取得更新電影的表單	GET /admin/movies/:id/edit	adminController.editMovie
 // 更新一筆電影	PUT /admin/movies/:id	adminController.putMovie
 // 移除一筆電影 DELETE /admin/movies/:id	adminController.deleteMovie

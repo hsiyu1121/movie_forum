@@ -21,7 +21,7 @@
       <th scope="row">{{this.id}}</th>
       <td><a href="/admin/movies/{{this.id}}">{{this.title}}</a></td>
       <td>{{this.release_date}}</td>
-      <td>--</td>
+      <td><a href="/admin/movies/{{this.id}}/edit" class="btn btn-link">Edit</a></td>
     </tr>
     {{/each}}
   </tbody>
