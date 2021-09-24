@@ -5,6 +5,8 @@ const PAGE_OFFSET = 0
 const fs = require('fs')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT = process.env.IMGUR_CLIENT
 
 
 const adminController = {
@@ -48,19 +50,17 @@ const adminController = {
 
       const { file } = req
       if (file) {
-        fs.readFile(file.path, (err, data) => {
-          if(err) console.log('Error', err)
-          fs.writeFile(`upload/${file.originalname}`, data, () => {
-            return  Movies.create({
-                      title, 
-                      description, 
-                      release_date, 
-                      image: file ? `upload/${file.originalname}`: null
-                    }).then(movie => {
-                        req.flash('success_msg', '資料成功建立')
-                        return res.redirect('/admin/movies')
-                    })
-          })
+        imgur.setClientID(IMGUR_CLIENT)
+        imgur.upload(file.path, (err, img) => { 
+        return  Movies.create({
+                  title, 
+                  description, 
+                  release_date, 
+                  image: file ? img.data.link : null
+                }).then(movie => {
+                    req.flash('success_msg', '資料成功建立')
+                    return res.redirect('/admin/movies')
+                })
         })
       } else {
         return  Movies.create({
@@ -100,24 +100,21 @@ const adminController = {
 
       const { file } = req
       if(file) {
-        fs.readFile(file.path, (err, data) => {
-          if (err) console.log('Error', err)
-          fs.writeFile(`upload/${file.originalname}`, data, () => {
-            return Movies.findByPk(req.params.id)
-                  .then(movie => {
-                    movie.update({
-                      title, 
-                      description, 
-                      release_date, 
-                      image: file ? `upload/${file.originalname}`: movie.image
-                    }).then(movie => {
-                      req.flash('success_msg', '資料成功更新')
-                      return res.redirect('/admin/movies')
-                    })
-                  })
+        imgur.setClientID(IMGUR_CLIENT)
+        imgur.upload(file.path, (err, img) => {
+           return Movies.findByPk(req.params.id)
+          .then(movie => {
+            movie.update({
+              title, 
+              description, 
+              release_date, 
+              image: file ? img.data.link: movie.image
+            }).then(movie => {
+              req.flash('success_msg', '資料成功更新')
+              return res.redirect('/admin/movies')
+            })
           })
         })
-  
       } else {
         return Movies.findByPk(req.params.id)
         .then(movie => {
@@ -125,7 +122,7 @@ const adminController = {
             title, 
             description, 
             release_date, 
-            image: movie.image
+            image: null
           }).then(movie => {
             req.flash('success_msg', '資料成功更新')
             return res.redirect('/admin/movies')
