@@ -15,6 +15,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
+app.use('/upload', express.static(__dirname + '/upload'))
 app.use(methodOverride('_method'));
 app.use(flash());
 app.use(session({

@@ -19,9 +19,16 @@
     {{#each movies.rows}}
     <tr>
       <th scope="row">{{this.id}}</th>
-      <td><a href="/admin/movies/{{this.id}}">{{this.title}}</a></td>
+      <td>{{this.title}}</td>
       <td>{{this.release_date}}</td>
-      <td><a href="/admin/movies/{{this.id}}/edit" class="btn btn-link">Edit</a></td>
+      <td>
+        <a href="/admin/movies/{{this.id}}" class="btn btn-link">Show</a>
+        <a href="/admin/movies/{{this.id}}/edit" class="btn btn-link">Edit</a>
+        <form action="/admin/movies/{{this.id}}?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-link">Delete</button>
+        </form>
+        
+      </td>
     </tr>
     {{/each}}
   </tbody>

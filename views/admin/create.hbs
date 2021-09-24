@@ -3,10 +3,10 @@
     <div class="card card-body">
       {{#if movies}}
       <h1 class="text-center">Edit Movie</h1>
-      <form action="/admin/movies/{{movies.id}}?_method=PUT" method="POST">
+      <form action="/admin/movies/{{movies.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
       {{else}}
       <h1 class="text-center">Create Movie</h1>
-      <form action="/admin/create" method="POST">
+      <form action="/admin/create" method="POST" enctype="multipart/form-data">
       {{/if}}
         <div class="form-group">
           <label for="title">Title</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <label for="image">Image</label>
-          <input type="text" class="form-control" name="image" id="image"
+          <input type="file" class="form-control-file" name="image" id="image"
             placeholder="Enter Image" value="{{movies.image}}">
         </div>
         <button type="submit" class="btn btn-primary btn-block">submit</button>

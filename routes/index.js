@@ -2,6 +2,8 @@ const adminController = require('../controllers/adminController')
 const movieController = require('../controllers/movieController')
 const userController = require('../controllers/userController')
 const passport = require('passport');
+const multer = require('multer')
+const upload = multer({ dest: 'temp/'})
 
 
 module.exports = (app, passport) => {
@@ -24,11 +26,12 @@ module.exports = (app, passport) => {
 
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
   app.get('/admin/create', authenticateAdmin, adminController.createMovie)
-  app.post('/admin/create', authenticateAdmin, adminController.postMovie)
+  app.post('/admin/create', authenticateAdmin, upload.single('image'), adminController.postMovie)
   app.get('/admin/movies', authenticateAdmin, adminController.getMovies)
   app.get('/admin/movies/:id', authenticateAdmin, adminController.getMovie)
   app.get('/admin/movies/:id/edit', authenticateAdmin, adminController.editMovie)
-  app.put('/admin/movies/:id', authenticateAdmin, adminController.putMovie)
+  app.put('/admin/movies/:id', authenticateAdmin, upload.single('image'), adminController.putMovie)
+  app.delete('/admin/movies/:id', authenticateAdmin, adminController.deleteMovie)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -44,7 +47,4 @@ module.exports = (app, passport) => {
 
 
 
-
-// 取得更新電影的表單	GET /admin/movies/:id/edit	adminController.editMovie
-// 更新一筆電影	PUT /admin/movies/:id	adminController.putMovie
 // 移除一筆電影 DELETE /admin/movies/:id	adminController.deleteMovie
