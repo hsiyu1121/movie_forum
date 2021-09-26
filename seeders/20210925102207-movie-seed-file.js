@@ -9,6 +9,7 @@ module.exports = {
         description: movies[i].description,
         release_date: movies[i].release_date,
         image: 'https://movie-list.alphacamp.io/posters/' + movies[i].image,
+        CategoryId: Math.floor(Math.random() * 15) + 1,
         createdAt: new Date(),
         updatedAt: new Date()    
       })
