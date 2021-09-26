@@ -1,5 +1,6 @@
 const db = require('../models')
 const Movie = db.Movie
+const Category = db.Category
 const PAGE_LIMIT = 3
 const PAGE_OFFSET = 0
 const fs = require('fs')
@@ -81,8 +82,11 @@ const adminController = {
 
   editMovie: async (req, res) => {
     try {
-      const movies = await Movie.findByPk(req.params.id)
-      return res.render('admin/create', { movies: movies.toJSON() })
+      const [movies, categories] = await Promise.all([
+        Movie.findByPk(req.params.id, { raw: true }),
+        Category.findAll({ raw: true, nest: true })
+      ])
+      return res.render('admin/create', { movies, categories })
     } catch(error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
