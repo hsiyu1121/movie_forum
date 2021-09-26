@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Movie.belongsTo(models.category)
+      Movie.belongsTo(models.Category)
     }
   };
   Movie.init({

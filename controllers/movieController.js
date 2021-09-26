@@ -1,10 +1,10 @@
 const db = require('../models')
-const Movies = db.Movies
+const Movie = db.Movie
 
 const movieController = {
   getMovies: (req, res) => {
     try {
-      Movies.findAll({ raw: true, nested: true })
+      Movie.findAll({ raw: true, nested: true })
         .then(movies => {
           return res.render('movies')
         })

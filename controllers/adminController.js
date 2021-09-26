@@ -1,5 +1,5 @@
 const db = require('../models')
-const Movies = db.Movies
+const Movie = db.Movie
 const PAGE_LIMIT = 3
 const PAGE_OFFSET = 0
 const fs = require('fs')
@@ -12,7 +12,7 @@ const IMGUR_CLIENT = process.env.IMGUR_CLIENT
 const adminController = {
   getMovies: async (req, res) => {
     try {
-      const movies =  await Movies.findAndCountAll({ 
+      const movies =  await Movie.findAndCountAll({ 
                         raw: true, 
                         nested: true ,
                         limit: PAGE_LIMIT, 
@@ -28,7 +28,7 @@ const adminController = {
 
   getMovie: async (req, res) => {
     try{
-      const movie = await Movies.findByPk(req.params.id)
+      const movie = await Movie.findByPk(req.params.id)
       return res.render('admin/movie', { movie: movie.toJSON() })
     } catch (error) {
       req.flash('error_msg', error.toString())
@@ -52,7 +52,7 @@ const adminController = {
       if (file) {
         imgur.setClientID(IMGUR_CLIENT)
         imgur.upload(file.path, (err, img) => { 
-        return  Movies.create({
+        return  Movie.create({
                   title, 
                   description, 
                   release_date, 
@@ -63,7 +63,7 @@ const adminController = {
                 })
         })
       } else {
-        return  Movies.create({
+        return  Movie.create({
                     title, 
                     description, 
                     release_date, 
@@ -81,7 +81,7 @@ const adminController = {
 
   editMovie: async (req, res) => {
     try {
-      const movies = await Movies.findByPk(req.params.id)
+      const movies = await Movie.findByPk(req.params.id)
       return res.render('admin/create', { movies: movies.toJSON() })
     } catch(error) {
       req.flash('error_msg', error.toString())
@@ -102,7 +102,7 @@ const adminController = {
       if(file) {
         imgur.setClientID(IMGUR_CLIENT)
         imgur.upload(file.path, (err, img) => {
-           return Movies.findByPk(req.params.id)
+           return Movie.findByPk(req.params.id)
           .then(movie => {
             movie.update({
               title, 
@@ -116,7 +116,7 @@ const adminController = {
           })
         })
       } else {
-        return Movies.findByPk(req.params.id)
+        return Movie.findByPk(req.params.id)
         .then(movie => {
           movie.update({
             title, 
@@ -137,7 +137,7 @@ const adminController = {
 
   deleteMovie: (req, res) => {
     try {
-      Movies.findByPk(req.params.id)
+      Movie.findByPk(req.params.id)
       .then(movie => {
         movie.destroy()
         .then(movie => {
