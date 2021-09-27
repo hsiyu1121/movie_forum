@@ -35,6 +35,7 @@ module.exports = (app, passport) => {
   app.delete('/admin/movies/:id', authenticateAdmin, adminController.deleteMovie)
 
   app.get('/admin/categories', authenticateAdmin, categoryController.getCategories)
+  app.post('/admin/categories', authenticateAdmin, categoryController.postCategory)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -49,7 +50,6 @@ module.exports = (app, passport) => {
 }
 
 
-// 瀏覽所有分類	GET /admin/categories	categoryController.getCategories
 // 新增一筆分類	POST /admin/categories	categoryController.postCategory
 // 瀏覽編輯分類的表單	GET /admin/categories/:id	categoryController.getCategories
 // 更新一筆分類	PUT /admin/categories/:id	categoryController.putCategory

@@ -14,7 +14,18 @@ const categoryController = {
     }
     
   }, 
-  // postCategory: (req, res) => {}, 
+  postCategory: (req, res) => {
+    try {
+      const { name } = req.body
+      Category.create({ name })
+      .then(category => {
+        return res.redirect('/admin/categories')
+      })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  }, 
   // getCategories: (req, res) => {}, 
   // putCategory: (req, res) => {}, 
   // deleteCategory: (req, res) => {}
