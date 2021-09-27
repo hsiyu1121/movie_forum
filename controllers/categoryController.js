@@ -40,8 +40,27 @@ const categoryController = {
       return res.status(500).redirect('back')
     }
   }, 
-  // getCategories: (req, res) => {}, 
-  // putCategory: (req, res) => {}, 
+  putCategory: (req, res) => {
+    try {
+      const { name } = req.body
+      if (!name) {
+        req.flash('error_msg', 'name didn\'t exist!')
+        return res.redirect('back')
+      }
+      Category.findByPk(req.params.id)   
+      .then(category => {
+        category.update({ name })
+        .then(category => {
+          return res.redirect('/admin/categories')
+        })
+      })
+
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+
+  }, 
   // deleteCategory: (req, res) => {}
 }
 
