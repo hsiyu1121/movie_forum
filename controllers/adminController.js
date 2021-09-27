@@ -20,8 +20,7 @@ const adminController = {
           include: [Category]
       }).then(movies => {
         return res.render('admin/movies', { movies })
-      })
-        
+      })     
     } catch (error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')

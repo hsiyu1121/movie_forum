@@ -1,0 +1,35 @@
+<h1>電影類別</h1>
+<a href="/admin/movies">電影清單</a> ||
+<a href="/admin/create">新增電影</a> ||
+<a href="/admin/categories">電影類別</a>
+<br>
+<br>
+<div class="col-md-6">
+  <form action="" method="POST" style="display:inline;">
+    <div class="form-group">
+      <label for="createCategory">新增類別</label>
+      <input type="text" class="form-control" name="createCategory" id="createCategory" value="" placeholder="Enter Category">
+    </div>  
+    <button type="submit" class="btn btn-primary">submit</button>
+  </form>
+
+  <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category</th>
+        <th scope="col">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each categories}}
+      <tr>
+        <td scope="col">{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

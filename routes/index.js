@@ -1,6 +1,7 @@
 const adminController = require('../controllers/adminController')
 const movieController = require('../controllers/movieController')
 const userController = require('../controllers/userController')
+const categoryController = require('../controllers/categoryController')
 const passport = require('passport');
 const multer = require('multer')
 const upload = multer({ dest: 'temp/'})
@@ -33,6 +34,8 @@ module.exports = (app, passport) => {
   app.put('/admin/movies/:id', authenticateAdmin, upload.single('image'), adminController.putMovie)
   app.delete('/admin/movies/:id', authenticateAdmin, adminController.deleteMovie)
 
+  app.get('/admin/categories', authenticateAdmin, categoryController.getCategories)
+
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
 
@@ -46,5 +49,8 @@ module.exports = (app, passport) => {
 }
 
 
-
-// 移除一筆電影 DELETE /admin/movies/:id	adminController.deleteMovie
+// 瀏覽所有分類	GET /admin/categories	categoryController.getCategories
+// 新增一筆分類	POST /admin/categories	categoryController.postCategory
+// 瀏覽編輯分類的表單	GET /admin/categories/:id	categoryController.getCategories
+// 更新一筆分類	PUT /admin/categories/:id	categoryController.putCategory
+// 刪除一筆分類	DELETE /admin/categories/:id	categoryController.deleteCategory
