@@ -61,7 +61,20 @@ const categoryController = {
     }
 
   }, 
-  // deleteCategory: (req, res) => {}
+  deleteCategory: (req, res) => {
+     try {
+      Category.findByPk(req.params.id)   
+      .then(category => {
+        category.destroy()
+        .then(category => {
+          return res.redirect('/admin/categories')
+        })
+      })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  }
 }
 
 module.exports = categoryController
