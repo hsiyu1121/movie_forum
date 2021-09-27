@@ -3,34 +3,39 @@ const Movie = db.Movie
 const Category = db.Category
 const PAGE_LIMIT = 3
 const PAGE_OFFSET = 0
-const fs = require('fs')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT = process.env.IMGUR_CLIENT
 
-
 const adminController = {
-  getMovies: async (req, res) => {
+  getMovies: (req, res) => {
     try {
-      const movies =  await Movie.findAndCountAll({ 
-                        raw: true, 
-                        nested: true ,
-                        limit: PAGE_LIMIT, 
-                        offset: PAGE_OFFSET,
-                        order: [['id', 'DESC']]
-                      })
-      return res.render('admin/movies', { movies })
+      Movie.findAndCountAll({ 
+          raw: true, 
+          nest: true ,
+          limit: PAGE_LIMIT, 
+          offset: PAGE_OFFSET,
+          order: [['id', 'DESC']],
+          include: [Category]
+      }).then(movies => {
+        return res.render('admin/movies', { movies })
+      })
+        
     } catch (error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
     }
   },
 
-  getMovie: async (req, res) => {
+  getMovie: (req, res) => {
     try{
-      const movie = await Movie.findByPk(req.params.id)
-      return res.render('admin/movie', { movie: movie.toJSON() })
+      Movie.findByPk(
+        req.params.id,
+        { include: [Category] }
+      ).then(movie => {
+        return res.render('admin/movie', { movie: movie.toJSON() })
+      })
     } catch (error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
@@ -38,7 +43,15 @@ const adminController = {
   },
   
   createMovie: (req, res) => {
-    return res.render('admin/create')
+    try {
+      Category.findAll({ raw: true, nest: true })
+      .then(categories => {
+        return res.render('admin/create', { categories })
+      })
+    } catch(error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
   },
 
   postMovie: (req, res) => {
@@ -56,7 +69,8 @@ const adminController = {
         return  Movie.create({
                   title, 
                   description, 
-                  release_date, 
+                  release_date,
+                  CategoryId: req.body.categoryId, 
                   image: file ? img.data.link : null
                 }).then(movie => {
                     req.flash('success_msg', '資料成功建立')
@@ -67,7 +81,8 @@ const adminController = {
         return  Movie.create({
                     title, 
                     description, 
-                    release_date, 
+                    release_date,
+                    CategoryId: req.body.categoryId,  
                     image: null
         }).then(movie => {
           req.flash('success_msg', '資料成功建立')
@@ -80,20 +95,22 @@ const adminController = {
     }
   },
 
-  editMovie: async (req, res) => {
+  editMovie:  (req, res) => {
     try {
-      const [movies, categories] = await Promise.all([
-        Movie.findByPk(req.params.id, { raw: true }),
-        Category.findAll({ raw: true, nest: true })
-      ])
-      return res.render('admin/create', { movies, categories })
+      Category.findAll({ raw: true, nest: true })
+      .then(categories => {
+        Movie.findByPk(req.params.id, { raw: true })
+          .then(movies => {
+            return res.render('admin/create', { movies, categories })
+          })
+      })
     } catch(error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
     }
   },
 
-  putMovie: async (req, res) => {
+  putMovie: (req, res) => {
     const { title, description, release_date, image } = req.body
 
     try {
@@ -112,6 +129,7 @@ const adminController = {
               title, 
               description, 
               release_date, 
+              CategoryId: req.body.categoryId, 
               image: file ? img.data.link: movie.image
             }).then(movie => {
               req.flash('success_msg', '資料成功更新')
@@ -125,7 +143,8 @@ const adminController = {
           movie.update({
             title, 
             description, 
-            release_date, 
+            release_date,
+            CategoryId: req.body.categoryId,  
             image: null
           }).then(movie => {
             req.flash('success_msg', '資料成功更新')

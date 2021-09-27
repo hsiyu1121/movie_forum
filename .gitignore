@@ -91,3 +91,5 @@ typings/
 # image files
 temp/
 upload/
+
+*dist/
