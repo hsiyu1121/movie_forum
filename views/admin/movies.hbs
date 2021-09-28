@@ -23,7 +23,7 @@
       <th scope="row">{{this.id}}</th>
       <td>{{this.title}}</td>
       <td>{{this.Category.name}}</td>
-      <td>{{this.release_date}}</td>
+      <td class="date-panel">{{ momentDate this.release_date}}</td>
       <td>
         <a href="/admin/movies/{{this.id}}" class="btn btn-link">Show</a>
         <a href="/admin/movies/{{this.id}}/edit" class="btn btn-link">Edit</a>

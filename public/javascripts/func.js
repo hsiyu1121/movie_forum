@@ -8,6 +8,19 @@ function getTodayData() {
   dateControl.value = `${year}-${month}-${day}`
 }
 
+const datePanel = document.querySelector('.date-panel')
+function getDatePanel(arr) {
+  const dateString = new Date(arr)
+  const year = dateString.getFullYear()
+  const month = ('0' + (dateString.getMonth() + 1)).slice(-2)
+  const day = ('0' + (dateString.getDate())).slice(-2)
+  
+  console.log(dateString.typeof)
+  // dateString.innerText += `${year}-${month}-${day}`
+}
+
+// getDatePanel(datePanel.innerText) 
+
 
 
 

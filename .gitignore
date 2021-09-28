@@ -92,4 +92,8 @@ typings/
 temp/
 upload/
 
+# vs code dist
 *dist/
+
+# test file
+*test.js

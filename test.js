@@ -1,22 +1,9 @@
-function getDateFormat (data) {
-  let dateString = new Date(data)
-  const year = dateString.getFullYear()
-  const month = ('0' + (dateString.getMonth() + 1)).slice(-2)
-  const date = ('0' + (dateString.getDate())).slice(-2)
-  console.log( `${year}-${month}-${date}`)
+const moment = require('moment');
+
+function momentDate(b) {
+  return moment(b , 'YYYY/MM/DD').format()
 }
 
-function getDateFormat1 (data) {
-  let dateString = new Date(data)
-  console.log(dateString)
-  const year = dateString.getFullYear()
-  console.log(year)
-  const month = ('0' + (dateString.getMonth() + 1)).slice(-2)
-  const date = ('0' + (dateString.getDate())).slice(-2)
-  console.log( `${year}-${month}-${date}`)
-}
+let data = '1988-01-01T08:00:00+08:00'
 
-
-data = 'Fri Jan 01 1988 08:00:00 GMT+0800 (GMT+08:00)'
-
-getDateFormat1(data)
+console.log(momentDate(data).slice(0, 10))
