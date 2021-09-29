@@ -20,6 +20,19 @@ const movieController = {
       return res.status(500).redirect('back')
     }
   },
+  getMovie: (req, res) => {
+    try {
+      Movie.findByPk(req.params.id, { include: Category })
+        .then(movie => {
+          console.log(movie)
+          return res.render('movie', { movie })
+        })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+
+  },
 }
 
 module.exports = movieController
