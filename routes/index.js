@@ -25,6 +25,7 @@ module.exports = (app, passport) => {
   app.get('/', (req, res) => { res.redirect('/movies') })
   app.get('/movies', authenticate, movieController.getMovies)
   app.get('/movies/:id', authenticate, movieController.getMovie)
+  app.get('/search', authenticate, movieController.getSearch)
 
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
   app.get('/admin/create', authenticateAdmin, adminController.createMovie)

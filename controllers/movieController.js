@@ -1,6 +1,8 @@
-const db = require('../models')
-const Movie = db.Movie
-const Category = db.Category
+const db = require('../models');
+const Movie = db.Movie;
+const Category = db.Category;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const movieController = {
   getMovies: (req, res) => {
@@ -24,7 +26,6 @@ const movieController = {
     try {
       Movie.findByPk(req.params.id, { include: Category })
         .then(movie => {
-          console.log(movie)
           return res.render('movie', { movie })
         })
     } catch (error) {
@@ -32,6 +33,39 @@ const movieController = {
       return res.status(500).redirect('back')
     }
 
+  },
+  getSearch: (req, res) => {
+    let { keyword } = req.query
+    keyword = keyword.toLowerCase().trim()
+    
+    Movie.findAll({ 
+      raw: true, 
+      nest: true, 
+      where: {
+              [Op.or]: [
+                        { title: { [Op.like]: `%${keyword}%`} },
+                        { description: {[Op.like]: `%${keyword}%` } }
+                      ]
+      }
+    }).then(movies => {
+      console.log(req.query)
+      return res.render('movies', { movies, keyword })
+    }) 
+
+   
+
+    //======================================
+    // let { keyword } = req.query
+    // keyword = keyword.toLowerCase().trim()
+    // Movie.findAll({ 
+    //   raw: true, 
+    //   nest: true, 
+    //   where: {
+    //     title: { [Op.like]: '%' + keyword + '%'}        
+    //   }
+    // }).then(movies => {
+    //   return res.render('movies', { movies, keyword })
+    // }) 
   },
 }
 
