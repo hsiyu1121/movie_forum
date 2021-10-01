@@ -24,5 +24,13 @@
     <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
     <button type="submit" class="btn btn-primary mt-1">submit</button>
   </form>
+  <br>
+  {{#each movie.Comments}}
+  <blockquote class="blockquote">
+  <h5><a href="/users/{{this.User.dataValues.id}}">{{this.User.dataValues.name}}</a></h5>
+  <p class="d-flex justify-content-between">{{this.dataValues.text}}
+  <small class="blockquote-footer">{{momentAgo this.dataValues.createdAt}}</small></p>
+  </blockquote>
+  {{/each}}
 </div>
 

@@ -9,7 +9,6 @@ const commentController = {
         UserId: req.user.id,
         MovieId: req.body.movieId
       }).then((comment) => {
-        console.log(comment)
         res.redirect(`/movies/${req.body.movieId}`)
       })
     } catch (error) {

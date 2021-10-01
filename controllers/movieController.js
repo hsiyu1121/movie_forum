@@ -1,5 +1,7 @@
 const db = require('../models');
 const Movie = db.Movie;
+const User = db.User;
+const Comment = db.Comment;
 const Category = db.Category;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -51,10 +53,15 @@ const movieController = {
   },
   getMovie: (req, res) => {
     try {
-      Movie.findByPk(req.params.id, { include: Category })
-        .then(movie => {
-          return res.render('movie', { movie })
-        })
+      Movie.findByPk(req.params.id, { 
+        include: [
+          Category,
+          { model: Comment, include: [User]}
+        ] 
+      }).then(movie => {
+        console.log(movie.Comments)
+        return res.render('movie', { movie });
+      })
     } catch (error) {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
