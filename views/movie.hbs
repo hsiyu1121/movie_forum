@@ -7,8 +7,22 @@
       <div class="card-body">
         <h5 class="card-title">Title: {{movie.dataValues.title}}</h5>
         <p class="card-text">Release: {{ momentDate movie.dataValues.release_date}}</p>
-        <p class="card-text">Description: <br><br>{{movie.dataValues.description}}</p>
+        <p class="card-text">Description: <br>{{movie.dataValues.description}}</p>
       </div>
     </div>
   </div>
 </div>
+<hr>
+<br>
+<div class="col-md-12">
+  <a href="javascript:history.back()" onclick="history" class="my-2">回上一頁</a>
+  <h4>留下評論</h4>
+  <form action="/comments" method="POST" class="form-inline">
+    <div class="form-group">
+      <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="100"></textarea>
+    </div>
+    <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
+    <button type="submit" class="btn btn-primary mt-1">submit</button>
+  </form>
+</div>
+

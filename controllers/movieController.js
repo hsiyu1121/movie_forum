@@ -59,41 +59,48 @@ const movieController = {
       req.flash('error_msg', error.toString())
       return res.status(500).redirect('back')
     }
-
   },
   getSearch: (req, res) => {
-    let { keyword } = req.query
-    keyword = keyword.toLowerCase().trim()
-   
-    Movie.findAll({ 
-      raw: true, 
-      nest: true, 
-      where: {
-              [Op.or]: [
-                        { title: { [Op.like]: `%${keyword}%`} },
-                        { description: {[Op.like]: `%${keyword}%` } }
-                      ]
-      }
-    }).then(movies => {
-      return res.render('movies', { movies, keyword })
-    }) 
+    try {
+
+      let { keyword } = req.query
+      keyword = keyword.toLowerCase().trim()
+    
+      Movie.findAll({ 
+        raw: true, 
+        nest: true, 
+        where: {
+                [Op.or]: [
+                          { title: { [Op.like]: `%${keyword}%`} },
+                          { description: {[Op.like]: `%${keyword}%` } }
+                        ]
+        }
+      }).then(movies => {
+        return res.render('movies', { movies, keyword })
+      }) 
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
   },
   getSort: (req, res) => {
-    const type = req.params.type
-    const method = req.params.method
-    // const typeObj = { title: '名稱', release_date: '上映日期' }
-    // const methodObj = { asc: 'A to Z', desc: 'Z to A'}
-    const typeObj = { title: 'Title', release_date: 'Release_date' }
-    const methodObj = { ASC: 'ASC', DESC: 'DESC'}
-    const currentSelected = [`${ typeObj[type]}`, `${methodObj[method]}`]
-    Movie.findAll({ 
-      raw: true,
-      nest: true,
-      order: [currentSelected]
-    }).then(movies => {
-      return res.render('movies', { movies, currentSelected })
-    })
-
+    try {
+      const type = req.params.type
+      const method = req.params.method
+      const typeObj = { title: 'Title', release_date: 'Release_date' }
+      const methodObj = { ASC: 'ASC', DESC: 'DESC'}
+      const currentSelected = [`${ typeObj[type]}`, `${methodObj[method]}`]
+      Movie.findAll({ 
+        raw: true,
+        nest: true,
+        order: [currentSelected]
+      }).then(movies => {
+        return res.render('movies', { movies, currentSelected })
+      })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
   },
 }
 

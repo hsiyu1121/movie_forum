@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Comment.belongsTo(model.User)
-      Comment.belongsTo(model.Movie)
+      Comment.belongsTo(models.User)
+      Comment.belongsTo(models.Movie)
     }
   };
   Comment.init({

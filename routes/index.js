@@ -2,6 +2,7 @@ const adminController = require('../controllers/adminController')
 const movieController = require('../controllers/movieController')
 const userController = require('../controllers/userController')
 const categoryController = require('../controllers/categoryController')
+const commentController = require('../controllers/commentController')
 const passport = require('passport');
 const multer = require('multer')
 const upload = multer({ dest: 'temp/'})
@@ -23,10 +24,13 @@ module.exports = (app, passport) => {
   }
 
   app.get('/', (req, res) => { res.redirect('/movies') })
-  app.get('/movies', authenticate, movieController.getMovies)
-  app.get('/movies/:id', authenticate, movieController.getMovie)
+  
   app.get('/search', authenticate, movieController.getSearch)
   app.get('/sort/:type/:method', authenticate, movieController.getSort)
+  app.post('/comments', authenticate, commentController.postComment)
+
+  app.get('/movies', authenticate, movieController.getMovies)
+  app.get('/movies/:id', authenticate, movieController.getMovie)
 
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
   app.get('/admin/create', authenticateAdmin, adminController.createMovie)
@@ -54,8 +58,3 @@ module.exports = (app, passport) => {
   )
   app.get('/logout', userController.logout)
 }
-
-
-
-// 更新一筆分類	PUT /admin/categories/:id	categoryController.putCategory
-// 刪除一筆分類	DELETE /admin/categories/:id	categoryController.deleteCategory
