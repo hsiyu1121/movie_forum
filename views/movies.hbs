@@ -1,11 +1,30 @@
 <div class="container mt-5">
   <!-- search bar -->
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-6">
-      <form action="/search" method="GET" style="display:inline;">
+  <div class="row d-flex justify-content-center" style="display:inline;">
+    <div class="col-md-3">
+      <div class="dropdown mb-3">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{#if currentSelected}}
+          {{currentSelected}}
+          {{else}}
+          排序
+          {{/if}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/sort/title/ASC">名稱: A to Z</a>
+          <a class="dropdown-item" href="/sort/title/DESC">名稱: Z to A</a>
+          <a class="dropdown-item" href="/sort/release_date/ASC">上映日期: 由舊到新</a>
+          <a class="dropdown-item" href="/sort/release_date/DESC">上映日期: 由新到舊</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+
+      <form action="/search" method="GET">
         <div class="input-group mb-3">   
           <input type="text" name="keyword" class="form-control" value="{{ keyword }}"
-            placeholder="Enter movie name to search..." aria-label="Movie Name..." aria-describedby="search-button">
+            placeholder="Enter movie name or description to search..." aria-label="Movie Name..." aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary btn-sm" type="submit" id="search-button">Search</button>
           </div>
@@ -13,8 +32,10 @@
       </form>
     </div>
   </div>
+
+ 
   <!-- movie list -->
-  <div class="row">
+  <div class="row mb-1">
     {{#each movies}}
     <div class="col-sm-3">
       <a href="/movies/{{ this.id }}" class="text-secondary">
@@ -28,5 +49,28 @@
     </div>
     {{/each}}
   </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="/movies?page={{prev}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {{#each totalPage}}
+        {{#ifCond this ../page}}
+        <li class="page-item"><a class="page-link" href="#">{{this}}</a></li>
+        {{else}}
+        <li class="page-item"><a class="page-link" href="/movies?page={{this}}">{{this}}</a></li>
+        {{/ifCond}}
+      {{/each}}
+      
+      <li class="page-item">
+        <a class="page-link" href="/movies?page={{next}}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 </div>
