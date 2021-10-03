@@ -28,8 +28,7 @@ const movieController = {
         const prev = page - 1 < 1 ? 1 : page - 1 
         const next = page + 1 > pages ? pages :  page + 1 
         const data = result.rows.map(r => {
-          r,
-          r.title = r.title.substring(0, 30)
+          r.dataValues
           return r
         })
           Category.findAll({

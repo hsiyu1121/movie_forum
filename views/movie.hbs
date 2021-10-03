@@ -12,10 +12,10 @@
     </div>
   </div>
 </div>
+<a href="javascript:history.back()" onclick="history" class="my-2">回上一頁</a>
 <hr>
 <br>
 <div class="col-md-12">
-  <a href="javascript:history.back()" onclick="history" class="my-2">回上一頁</a>
   <h4>留下評論</h4>
   <form action="/comments" method="POST" class="form-inline">
     <div class="form-group">
@@ -26,7 +26,13 @@
   </form>
   <br>
   {{#each movie.Comments}}
-  <blockquote class="blockquote">
+  {{#if ../user.role}}
+  <form action="/comments/{{this.dataValues.id}}?_method=DELETE" method="POST" style="float: right;">
+    <button type="submit" class="btn btn-danger btn-sm mb-1">delete</button>
+  </form>
+  {{/if}}
+  
+  <blockquote class="blockquote"> 
   <h5><a href="/users/{{this.User.dataValues.id}}">{{this.User.dataValues.name}}</a></h5>
   <p class="d-flex justify-content-between">{{this.dataValues.text}}
   <small class="blockquote-footer">{{momentAgo this.dataValues.createdAt}}</small></p>

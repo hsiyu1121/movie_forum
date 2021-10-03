@@ -16,6 +16,20 @@ const commentController = {
       return res.status(500).redirect('back')
     }
   },
+  deleteComment: (req, res) => {
+    try {
+      return Comment.findByPk(req.params.id)
+        .then((comment) => {
+          comment.destroy()
+            .then(comment => {
+              res.redirect(`/movies/${comment.MovieId}`)
+            })
+        })
+    } catch (error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  },
 
 }
 

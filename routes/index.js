@@ -28,6 +28,7 @@ module.exports = (app, passport) => {
   app.get('/search', authenticate, movieController.getSearch)
   app.get('/sort/:type/:method', authenticate, movieController.getSort)
   app.post('/comments', authenticate, commentController.postComment)
+  app.delete('/comments/:id', authenticate, commentController.deleteComment)
 
   app.get('/movies', authenticate, movieController.getMovies)
   app.get('/movies/:id', authenticate, movieController.getMovie)
