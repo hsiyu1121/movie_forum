@@ -11,5 +11,8 @@ module.exports = {
   },
   momentDate: function(b) {
     return moment(b , 'YYYY/MM/DD').format().slice(0, 10)
-  }
+  },
+  strLength: function(arr) {
+    return len = arr.length > 20 ? arr.slice(0, 20) + '...' : arr
+  },
 }

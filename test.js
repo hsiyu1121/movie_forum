@@ -1,9 +1,10 @@
-const moment = require('moment');
+const text = '1234567890abcdefghijklmnopqrstuvwxyz'
+const text1 = '1234567890abcde'
 
-function momentDate(b) {
-  return moment(b , 'YYYY/MM/DD').format()
+function strLength(arr) {
+  let len = arr.length > 30 ? arr.slice(0, 30) + '...' : arr
+  return len
 }
 
-let data = '1988-01-01T08:00:00+08:00'
-
-console.log(momentDate(data).slice(0, 10))
+console.log(strLength(text1))
+console.log(strLength(text))
