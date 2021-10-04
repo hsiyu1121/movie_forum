@@ -52,6 +52,28 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
+  getUser: (req, res) => {
+    try {
+      User.findByPk(req.params.id, { raw: true })
+      .then(user => {
+        return res.render('profile', { user })
+      })
+
+    } catch(error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  },
+  // editUser: (req, res) => {},
+  // putUser: (req, res) => {},
+
+
+
+
 }
 
 module.exports = userController
+
+// 瀏覽 Profile	GET /users/:id	userController.getUser
+// 瀏覽編輯 Profile 頁面	GET /users/:id/edit	userController.editUser
+// 編輯 Profile	PUT /users/:id	userController.putUser

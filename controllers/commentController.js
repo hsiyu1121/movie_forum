@@ -1,5 +1,7 @@
 const db = require('../models')
 const Comment = db.Comment
+const User = db.User
+const Movie = db.Movie
 
 const commentController = {
   postComment: (req, res) => {

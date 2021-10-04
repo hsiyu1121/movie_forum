@@ -58,7 +58,6 @@ const movieController = {
           { model: Comment, include: [User]}
         ] 
       }).then(movie => {
-        console.log(movie.Comments)
         return res.render('movie', { movie });
       })
     } catch (error) {

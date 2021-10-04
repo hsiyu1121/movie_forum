@@ -16,6 +16,7 @@
 <hr>
 <br>
 <div class="col-md-12">
+   
   <h4>留下評論</h4>
   <form action="/comments" method="POST" class="form-inline">
     <div class="form-group">
@@ -24,6 +25,7 @@
     <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
     <button type="submit" class="btn btn-primary mt-1">submit</button>
   </form>
+  
   <br>
   {{#each movie.Comments}}
   {{#if ../user.role}}
