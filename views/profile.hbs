@@ -4,9 +4,10 @@
     <img src="{{user.image}}" alt="">
   </div>
   <div class="col-md-6">
-    <p>{{user.name}}</p>
+    <p>name: {{user.name}}</p>
     <br>
-    <p>{{user.email}}</p>
+    <p>email: {{user.email}}</p>
+    <a href="/users/{{user.id}}/editProfile" class="btn btn-primary btn-sm">Edit</a>
   </div>
 </div>
 

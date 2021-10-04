@@ -1,6 +1,10 @@
 const db = require('../models')
 const User = db.User
 const bcrypt = require('bcryptjs')
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT = process.env.IMGUR_CLIENT
 
 const userController = {
   signUpPage: (req, res) => {
@@ -64,7 +68,17 @@ const userController = {
       return res.status(500).redirect('back')
     }
   },
-  // editUser: (req, res) => {},
+  editUser: (req, res) => {
+    try {
+      User.findByPk(req.params.id, { raw: true })
+      .then(user => {
+        return res.render('editProfile', { user })
+      })
+    } catch(error) {
+      req.flash('error_msg', error.toString())
+      return res.status(500).redirect('back')
+    }
+  },
   // putUser: (req, res) => {},
 
 
