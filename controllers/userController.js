@@ -2,6 +2,7 @@ const db = require('../models')
 const User = db.User
 const Comment = db.Comment
 const Movie = db.Movie
+const Favorite = db.Favorite
 const bcrypt = require('bcryptjs')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -132,6 +133,27 @@ const userController = {
         })
       })
     }
+  },
+  addFavorite: (req, res) => {
+    return Favorite.create({
+      UserId: req.user.id, 
+      MovieId: req.params.movieId,
+    }).then(favorite => {
+      return res.redirect('back')
+    })
+  },
+  removeFavorite: (req, res) => {
+     return Favorite.findOne({
+      where: {
+        UserId: req.user.id, 
+        MovieId: req.params.movieId,
+      }
+    }).then(favorite => {
+      favorite.destroy()
+        .then(favorite => {
+          return res.redirect('back')
+        })
+    })
   },
 
 
