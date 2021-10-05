@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Movie.belongsTo(models.Category)
       Movie.hasMany(models.Comment)
+      Movie.belongsToMany(models.User, {
+        through: models.Favorite,
+        foreignKey: 'MovieId',
+        as: 'FavoritedUsers'
+      })
     }
   };
   Movie.init({
