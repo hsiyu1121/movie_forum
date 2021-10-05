@@ -1,5 +1,7 @@
 const db = require('../models')
 const User = db.User
+const Comment = db.Comment
+const Movie = db.Movie
 const bcrypt = require('bcryptjs')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -58,9 +60,24 @@ const userController = {
   },
   getUser: (req, res) => {
     try {
-      User.findByPk(req.params.id, { raw: true })
+      User.findByPk(req.params.id, {
+        include:[
+          {model: Comment, include:[Movie]}
+        ]
+      })
       .then(user => {
-        return res.render('profile', { user })
+        let result = new Set();
+        let arr = []
+        user.Comments.forEach(item => {
+          if (!result.has(item.MovieId)) {
+            result.add(item.MovieId)
+            arr.push(result)
+          }
+        })
+        return res.render('profile', { 
+          user: user.toJSON(),
+          len: arr.length
+        })
       })
 
     } catch(error) {
@@ -79,15 +96,45 @@ const userController = {
       return res.status(500).redirect('back')
     }
   },
-  // putUser: (req, res) => {},
+  putUser: (req, res) => {
+    if (!req.body.name) {
+      req.flash('error_msg', "name didn\'t exist!!")
+      res.redirect('back')
+    }
 
+    const { file } = req
 
+    if (file) {
+      imgur.setClientID(IMGUR_CLIENT)
+      imgur.upload(file.path, (err, img) => {
+          return User.findByPk(req.params.id)
+            .then(user => {
+              user.update({
+                name: req.body.name, 
+                image: file ? img.data.link : user.image
+              })
+            .then(user => {
+              req.flash('success_msg', 'user was successfully to update')
+              res.redirect(`/users/${user.id}`)
+            })
+          })
+      })
+    } else {
+      return User.findByPk(req.params.id)
+        .then(user => {
+          user.update({
+            name: req.body.name, 
+            image: user.image
+          })
+        .then(user => {
+          req.flash('success_msg', 'user was successfully to update')
+          res.redirect(`/users/${user.id}`)
+        })
+      })
+    }
+  },
 
 
 }
 
 module.exports = userController
-
-// 瀏覽 Profile	GET /users/:id	userController.getUser
-// 瀏覽編輯 Profile 頁面	GET /users/:id/edit	userController.editUser
-// 編輯 Profile	PUT /users/:id	userController.putUser
