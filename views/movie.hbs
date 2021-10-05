@@ -10,19 +10,34 @@
         <p class="card-text">Description: <br>{{movie.dataValues.description}}</p>
       </div>
       <br>
-      {{#if isFavorite}}
-      <form action="/favorite/{{movie.id}}?_method=DELETE" method="POST">
-        <button type="submit" class="btn btn-danger btn-sm">
-          <i class="far fa-thumbs-up"></i>
-        </button>
-      </form>
-      {{else}}
-      <form action="/favorite/{{movie.id}}" method="POST">
-        <button type="submit" class="btn btn-sm">
-          <i class="far fa-thumbs-up"></i>
-        </button>
-      </form>
-      {{/if}}
+      <div class="form-inline">
+        {{#if this.isFavorite}}
+        <form action="/favorite/{{movie.id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-sm">
+            <i class="fas fa-thumbs-up text-danger"></i>
+          </button>
+        </form>
+        {{else}}
+        <form action="/favorite/{{movie.id}}" method="POST">
+          <button type="submit" class="btn btn-sm">
+            <i class="fas fa-thumbs-up text-secondary"></i>
+          </button>
+        </form>
+        {{/if}}
+        {{#if this.isLike}}
+        <form action="/like/{{movie.id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-sm">
+            <i class="fas fa-heart text-danger"></i>
+          </button>
+        </form>
+        {{else}}
+        <form action="/like/{{movie.id}}" method="POST">
+          <button type="submit" class="btn btn-sm">
+            <i class="fas fa-heart text-secondary"></i>
+          </button>
+        </form>
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

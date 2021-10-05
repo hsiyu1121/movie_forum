@@ -58,12 +58,14 @@ const movieController = {
       Movie.findByPk(req.params.id, { 
         include: [
           Category,
-          { model: User, as: 'FavoritedUsers'},
-          { model: Comment, include: [User]}
+          { model: User, as: 'FavoritedUsers' },
+          { model: User, as: 'LikedUsers' },
+          { model: Comment, include: [User] }
         ] 
       }).then(movie => {
         const isFavorite = movie.FavoritedUsers.map(d => d.id).includes(req.user.id)
-        return res.render('movie', { movie, isFavorite });
+        const isLike = movie.LikedUsers.map(d => d.id).includes(req.user.id)
+        return res.render('movie', { movie, isFavorite, isLike });
       })
     } catch (error) {
       req.flash('error_msg', error.toString())
