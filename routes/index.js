@@ -40,6 +40,10 @@ module.exports = (app, passport) => {
   app.post('/favorite/:movieId', authenticate, userController.addFavorite)
   app.delete('/favorite/:movieId', authenticate, userController.removeFavorite)
 
+  app.post('/like/:movieId', authenticate, userController.addLike)
+  app.delete('/like/:movieId', authenticate, userController.removeLike)
+
+
   app.get('/admin', (req, res) => { res.redirect('/admin/movies') })
   app.get('/admin/create', authenticateAdmin, adminController.createMovie)
   app.post('/admin/create', authenticateAdmin, upload.single('image'), adminController.postMovie)

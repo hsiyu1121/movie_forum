@@ -44,19 +44,34 @@
           <img class="card-img-top" src="{{ this.image }}" alt="Card image cap">
           <div class="card-body movie-item-body">
             <h6 class="card-title">{{strLength this.title }}</h6>
-            {{#if this.isFavorite}}
-            <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-danger btn-sm">
-                <i class="far fa-thumbs-up"></i>
-              </button>
-            </form>
-            {{else}}
-            <form action="/favorite/{{this.id}}" method="POST">
-              <button type="submit" class="btn btn-sm">
-                <i class="far fa-thumbs-up"></i>
-              </button>
-            </form>
-            {{/if}}
+            <div class="form-inline">
+              {{#if this.isFavorite}}
+              <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-thumbs-up text-danger"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/favorite/{{this.id}}" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-thumbs-up text-secondary"></i>
+                </button>
+              </form>
+              {{/if}}
+              {{#if this.isLike}}
+              <form action="/like/{{this.id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-heart text-danger"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/like/{{this.id}}" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-heart text-secondary"></i>
+                </button>
+              </form>
+              {{/if}}
+            </div>
           </div>
         </div>
       </a>

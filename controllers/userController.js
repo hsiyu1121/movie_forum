@@ -3,6 +3,7 @@ const User = db.User
 const Comment = db.Comment
 const Movie = db.Movie
 const Favorite = db.Favorite
+const Like = db.Like
 const bcrypt = require('bcryptjs')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -152,6 +153,27 @@ const userController = {
       favorite.destroy()
         .then(favorite => {
           return res.redirect('back')
+        })
+    })
+  },
+  addLike: (req, res) => {
+    return Like.create({
+      UserId: req.user.id,
+      MovieId: req.params.movieId
+    }).then(like => {
+      res.redirect('back')
+    })
+  },
+  removeLike: (req, res) => {
+    return Like.findOne({
+      where: {
+        UserId: req.user.id,
+        MovieId: req.params.movieId
+      }
+    }).then(like => {
+      like.destroy()
+        .then(like => {
+          res.redirect('back')
         })
     })
   },

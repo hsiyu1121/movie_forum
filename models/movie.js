@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'MovieId',
         as: 'FavoritedUsers'
       })
+      Movie.belongsToMany(models.User, {
+        through: models.Like,
+        foreignKey: 'MovieId',
+        as: 'LikedUsers'
+      })
+
     }
   };
   Movie.init({

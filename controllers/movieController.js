@@ -3,6 +3,8 @@ const Movie = db.Movie;
 const User = db.User;
 const Comment = db.Comment;
 const Category = db.Category;
+const Favorite = db.Favorite;
+const Like = db.Like;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const pageLimit = 8
@@ -29,7 +31,8 @@ const movieController = {
         const next = page + 1 > pages ? pages :  page + 1 
         const data = result.rows.map(r => ({
           ...r,
-          isFavorite: req.user.FavoritedMovies.map(d => d.id).includes(r.id)
+          isFavorite: req.user.FavoritedMovies.map(d => d.id).includes(r.id),
+          isLike: req.user.LikedMovies.map(d => d.id).includes(r.id)
         }))
           Category.findAll({
             raw: true, 
