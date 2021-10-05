@@ -11,32 +11,32 @@
       </div>
       <br>
       <div class="form-inline">
-        {{#if this.isFavorite}}
-        <form action="/favorite/{{movie.id}}?_method=DELETE" method="POST">
+        {{#if isFavorite}}
+        <form action="/favorite/{{movie.dataValues.id}}?_method=DELETE" method="POST" style="display:inline;">
           <button type="submit" class="btn btn-sm">
-            <i class="fas fa-thumbs-up text-danger"></i>
+            <i class="fas fa-thumbs-up text-danger"></i> 
           </button>
         </form>
         {{else}}
-        <form action="/favorite/{{movie.id}}" method="POST">
+        <form action="/favorite/{{movie.dataValues.id}}" method="POST" style="display:inline;">
           <button type="submit" class="btn btn-sm">
             <i class="fas fa-thumbs-up text-secondary"></i>
           </button>
         </form>
-        {{/if}}
-        {{#if this.isLike}}
-        <form action="/like/{{movie.id}}?_method=DELETE" method="POST">
-          <button type="submit" class="btn btn-sm">
+        {{/if}} <p>{{lenFavorite.length}}</p>
+        {{#if isLike}}
+        <form action="/like/{{movie.dataValues.id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn">
             <i class="fas fa-heart text-danger"></i>
           </button>
         </form>
         {{else}}
-        <form action="/like/{{movie.id}}" method="POST">
-          <button type="submit" class="btn btn-sm">
+        <form action="/like/{{movie.dataValues.id}}" method="POST">
+          <button type="submit" class="btn">
             <i class="fas fa-heart text-secondary"></i>
           </button>
         </form>
-        {{/if}}
+        {{/if}}<p>{{lenLike.length}}</p>
       </div>
     </div>
   </div>

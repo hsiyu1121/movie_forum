@@ -173,7 +173,7 @@ const userController = {
     }).then(like => {
       like.destroy()
         .then(like => {
-          res.redirect('back')
+          return res.redirect('back')
         })
     })
   },

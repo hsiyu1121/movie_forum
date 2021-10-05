@@ -65,7 +65,9 @@ const movieController = {
       }).then(movie => {
         const isFavorite = movie.FavoritedUsers.map(d => d.id).includes(req.user.id)
         const isLike = movie.LikedUsers.map(d => d.id).includes(req.user.id)
-        return res.render('movie', { movie, isFavorite, isLike });
+        const lenFavorite = movie.FavoritedUsers.map(d => d.UserId)
+        const lenLike = movie.LikedUsers.map(d => d.UserId)
+        return res.render('movie', { movie, isFavorite, isLike, lenFavorite,  lenLike});
       })
     } catch (error) {
       req.flash('error_msg', error.toString())
