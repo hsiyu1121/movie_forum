@@ -44,9 +44,19 @@
           <img class="card-img-top" src="{{ this.image }}" alt="Card image cap">
           <div class="card-body movie-item-body">
             <h6 class="card-title">{{strLength this.title }}</h6>
-            <form action="/favorite/{{this.id}}?_method=DELETE" method="POST"><button type="submit" class="btn btn-danger btn-sm">remove</button></form>
-            <form action="/favorite/{{this.id}}" method="POST"><button type="submit"
-                class="btn btn-primary btn-sm">add</button></form>
+            {{#if this.isFavorite}}
+            <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-danger btn-sm">
+                <i class="far fa-thumbs-up"></i>
+              </button>
+            </form>
+            {{else}}
+            <form action="/favorite/{{this.id}}" method="POST">
+              <button type="submit" class="btn btn-sm">
+                <i class="far fa-thumbs-up"></i>
+              </button>
+            </form>
+            {{/if}}
           </div>
         </div>
       </a>

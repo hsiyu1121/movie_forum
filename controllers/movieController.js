@@ -27,10 +27,10 @@ const movieController = {
         .map((item, index) => index + 1)
         const prev = page - 1 < 1 ? 1 : page - 1 
         const next = page + 1 > pages ? pages :  page + 1 
-        const data = result.rows.map(r => {
-          r.dataValues
-          return r
-        })
+        const data = result.rows.map(r => ({
+          ...r,
+          isFavorite: req.user.FavoritedMovies.map(d => d.id).includes(r.id)
+        }))
           Category.findAll({
             raw: true, 
             nest: true
@@ -55,10 +55,12 @@ const movieController = {
       Movie.findByPk(req.params.id, { 
         include: [
           Category,
+          { model: User, as: 'FavoritedUsers'},
           { model: Comment, include: [User]}
         ] 
       }).then(movie => {
-        return res.render('movie', { movie });
+        const isFavorite = movie.FavoritedUsers.map(d => d.id).includes(req.user.id)
+        return res.render('movie', { movie, isFavorite });
       })
     } catch (error) {
       req.flash('error_msg', error.toString())

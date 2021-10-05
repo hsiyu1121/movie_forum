@@ -68,16 +68,16 @@ const userController = {
       })
       .then(user => {
         let result = new Set();
-        let arr = []
+        let len = []
         user.Comments.forEach(item => {
           if (!result.has(item.MovieId)) {
             result.add(item.MovieId)
-            arr.push(result)
+            len.push(result)
           }
         })
         return res.render('profile', { 
           user: user.toJSON(),
-          len: arr.length
+          len: len.length
         })
       })
 
@@ -146,7 +146,7 @@ const userController = {
      return Favorite.findOne({
       where: {
         UserId: req.user.id, 
-        MovieId: req.params.movieId,
+        MovieId: req.params.movieId
       }
     }).then(favorite => {
       favorite.destroy()
