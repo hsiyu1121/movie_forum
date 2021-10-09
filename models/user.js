@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,38 +9,41 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Comment)
+      User.hasMany(models.Comment);
       User.belongsToMany(models.Movie, {
         through: models.Favorite,
-        foreignKey: 'UserId',
-        as: 'FavoritedMovies'
-      })
+        foreignKey: "UserId",
+        as: "FavoritedMovies",
+      });
       User.belongsToMany(models.Movie, {
         through: models.Like,
-        foreignKey: 'UserId',
-        as: 'LikedMovies'
-      })
+        foreignKey: "UserId",
+        as: "LikedMovies",
+      });
       User.belongsToMany(User, {
-        through: models.Followship, 
-        foreignKey: 'followingId',
-        as: 'Followers'
-      })
+        through: models.Followship,
+        foreignKey: "followingId",
+        as: "Followers",
+      });
       User.belongsToMany(User, {
-        through: models.Followship, 
-        foreignKey: 'followerId',
-        as: 'Followings'
-      })
+        through: models.Followship,
+        foreignKey: "followerId",
+        as: "Followings",
+      });
     }
-  };
-  User.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.BOOLEAN,
-    image: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  }
+  User.init(
+    {
+      name: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      role: DataTypes.BOOLEAN,
+      image: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
   return User;
 };
