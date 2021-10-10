@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Movie.belongsTo(models.Category);
       Movie.hasMany(models.Comment);
-      Movie.hasMany(models.Reply);
       Movie.belongsToMany(models.User, {
         through: models.Favorite,
         foreignKey: "MovieId",

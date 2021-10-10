@@ -6,24 +6,86 @@
     <p>name: {{user.name}}</p>
     <br>
     <p>email: {{user.email}}</p>
-    <p><strong>{{len}}</strong>&nbsp;已評論電影</p>
+    <p><strong>{{len}}</strong>&nbsp;&nbsp;已評論電影</p>
+    <p><strong>{{user.Followings.length}}</strong>&nbsp;&nbsp;自己去追蹤的人</p>
+    <p><strong>{{user.Followers.length}}</strong>&nbsp;&nbsp;追蹤自己的人</p>
+    <p><strong>{{user.FavoritedMovies.length}}</strong>&nbsp;&nbsp;收藏過的餐廳</p>
+
+    {{#ifCond user.id self}}
     <a href="/users/{{user.id}}/edit" class="btn btn-primary btn-sm">Edit</a>
+    {{else}}
+    {{#if this.isFollowed }}
+    <form action="/following/{{this.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit"
+        class="btn btn-danger">取消追蹤</button></form>
+    {{else}}
+    <form action="/following/{{this.id}}" method="POST" style="display: contents;"><button type="submit"
+        class="btn btn-primary">追蹤</button></form>
+    {{/if}}
+    {{/ifCond}}
   </div>
 </div>
 
-<div class="col-md-12">
-  <div class="card mt-1">
-    <div class="card-header">
-      <p><strong>{{len}}</strong>&nbsp;已評論電影</p>
-    </div>
-    <div class="card-body row">
-      {{#each user.Comments}}
-      <div class="ml-2">
-        <a href="/movies/{{this.Movie.id}}">
-          <img src="{{this.Movie.image}}" alt="{{this.Movie.title}}" width="100px">
-        </a>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <p><strong>{{len}}</strong>&nbsp;已評論電影</p>
       </div>
-      {{/each}}
+      <div class="card-body row">
+        {{#each user.Comments}}
+        <div class="ml-2">
+          <a href="/movies/{{this.Movie.id}}">
+            <img src="{{this.Movie.image}}" alt="{{this.Movie.title}}" width="100px">
+          </a>
+        </div>
+        {{/each}}
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <p><strong>{{user.FavoritedMovies.length}}</strong>&nbsp;收藏過的餐廳</p>
+        </div>
+        <div class="card-body row">
+          {{#each user.FavoritedMovies}}
+          <div class="ml-2">
+            <a href="/movies/{{this.id}}">
+              <img src="{{this.image}}" alt="{{this.title}}" width="100px">
+            </a>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <p><strong>{{user.Followings.length}}</strong>&nbsp;自己去追蹤的人</p>
+      </div>
+      <div class="card-body row">
+        {{#each user.Followings}}
+        <div class="ml-2">
+          <a href="/users/{{this.id}}">
+            <img src="{{this.image}}" alt="{{this.name}}" width="100px">
+          </a>
+        </div>
+        {{/each}}
+      </div>
+  
+      <div class="card">
+        <div class="card-header">
+          <p><strong>{{user.Followers.length}}</strong>&nbsp;追蹤自己的人</p>
+        </div>
+        <div class="card-body row">
+          {{#each user.Followers}}
+          <div class="ml-2">
+            <a href="/users/{{this.id}}">
+              <img src="{{this.image}}" alt="{{this.name}}" width="100px">
+            </a>
+          </div>
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

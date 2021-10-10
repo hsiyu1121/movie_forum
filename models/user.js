@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Comment);
-      User.hasMany(models.Reply);
       User.belongsToMany(models.Movie, {
         through: models.Favorite,
         foreignKey: "UserId",

@@ -55,14 +55,14 @@
       <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="100"></textarea>
     </div>
     <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
-    <button type="submit" class="btn btn-primary mt-1">submit</button>
+    <button type="submit" class="btn btn-primary mt-1"><i class="fas fa-play"></i></button>
   </form>
   
   <br>
   {{#each movie.Comments}}
   {{#if ../user.role}}
   <form action="/comments/{{this.dataValues.id}}?_method=DELETE" method="POST" style="float: right;">
-    <button type="submit" class="btn btn-danger btn-sm mb-1">delete</button>
+    <button type="submit" class="btn btn-danger btn-sm mb-1"><i class="fas fa-trash-alt"></i></button>
   </form>
   {{/if}}
   
@@ -72,5 +72,6 @@
   <small class="blockquote-footer">{{momentAgo this.dataValues.createdAt}}</small></p>
   </blockquote>
   {{/each}}
+  
 </div>
 

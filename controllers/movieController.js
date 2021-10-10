@@ -73,6 +73,7 @@ const movieController = {
           );
           const lenFavorite = movie.FavoritedUsers.map((d) => d.UserId);
           const lenLike = movie.LikedUsers.map((d) => d.UserId);
+
           return res.render("movie", {
             movie,
             isFavorite,
