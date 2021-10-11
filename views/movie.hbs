@@ -4,43 +4,61 @@
   </nav>
 
   <div class="row no-gutters">
-    <div class="col-md-4">
+    <div class="col-sm-4">
       <img src="{{movie.dataValues.image}}" alt="{{movie.dataValues.title}}" width="300px">
     </div>
-    <div class="col-md-8">
+    <div class="col-sm-8">
       <div class="card-body">
-        <h5 class="card-title">Title: {{movie.dataValues.title}}</h5>
-        <p class="card-text">Release: {{ momentDate movie.dataValues.release_date}}</p>
-        <p class="card-text">Description: <br>{{movie.dataValues.description}}</p>
-      </div>
-      <br>
-      <div class="form-inline">
-        {{#if isFavorite}}
-        <form action="/favorite/{{movie.dataValues.id}}?_method=DELETE" method="POST" style="display:inline;">
-          <button type="submit" class="btn btn-sm">
-            <i class="fas fa-thumbs-up text-danger"></i> 
-          </button>
-        </form>
-        {{else}}
-        <form action="/favorite/{{movie.dataValues.id}}" method="POST" style="display:inline;">
-          <button type="submit" class="btn btn-sm">
-            <i class="fas fa-thumbs-up text-secondary"></i>
-          </button>
-        </form>
-        {{/if}} <p>{{lenFavorite.length}}</p>
-        {{#if isLike}}
-        <form action="/like/{{movie.dataValues.id}}?_method=DELETE" method="POST">
-          <button type="submit" class="btn">
-            <i class="fas fa-heart text-danger"></i>
-          </button>
-        </form>
-        {{else}}
-        <form action="/like/{{movie.dataValues.id}}" method="POST">
-          <button type="submit" class="btn">
-            <i class="fas fa-heart text-secondary"></i>
-          </button>
-        </form>
-        {{/if}}<p>{{lenLike.length}}</p>
+        <h5 class="card-title">Title: &nbsp;{{movie.dataValues.title}}</h5>
+        <p class="card-title"><strong>Category:</strong> &nbsp;{{movie.Category.dataValues.name}}</p>
+        <p class="card-title"><strong>Release:</strong>  &nbsp;{{ momentDate movie.dataValues.release_date}}</p>
+        <p class="card-text"> <strong>Description:</strong>  <br> {{movie.dataValues.description}}</p>
+        <br>
+
+        <div class="form-inline movie-icon">
+          <div class="movie-favorite">
+            {{#if isFavorite}}
+            <form action="/favorite/{{movie.dataValues.id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn">
+                按讚數<i class="fas fa-thumbs-up text-danger ml-1 mr-1"></i>
+                <span class="badge">
+                  <div class="movie-favorite-number">{{lenFavorite.length}}</div>
+                </span>
+              </button>
+            </form>
+            {{else}}
+            <form action="/favorite/{{movie.dataValues.id}}" method="POST">
+              <button type="submit" class="btn">
+                按讚數<i class="fas fa-thumbs-up text-secondary ml-1 mr-1"></i>
+                <span class="badge">
+                  <div class="movie-favorite-number">{{lenFavorite.length}}</div>
+                </span>
+              </button>
+            </form>
+            {{/if}} 
+          </div>
+          <div class="movie-like ml-2">
+            {{#if isLike}}
+            <form action="/like/{{movie.dataValues.id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn">
+                收藏數<i class="fas fa-heart text-danger ml-1 mr-1"></i>
+                <span class="badge">
+                  <div class="movie-like-number">{{lenLike.length}}</div>
+                </span>
+              </button>
+            </form>
+            {{else}}
+            <form action="/like/{{movie.dataValues.id}}" method="POST">
+              <button type="submit" class="btn">
+                收藏數<i class="fas fa-heart text-secondary ml-1 mr-1"></i>
+                <span class="badge">
+                  <div class="movie-like-number">{{lenLike.length}}</div>
+                </span>
+              </button>
+            </form>
+            {{/if}}
+          </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -50,13 +68,15 @@
 <div class="col-md-12">
    
   <h4>留下評論</h4>
-  <form action="/comments" method="POST" class="form-inline">
-    <div class="form-group">
-      <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="100"></textarea>
-    </div>
-    <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
-    <button type="submit" class="btn btn-primary mt-1"><i class="fas fa-play"></i></button>
-  </form>
+  <div class="comment-area">
+    <form action="/comments" method="POST" class="form-inline">
+      <div class="form-group">
+        <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="100" rows="2" placeholder="comment something ..."></textarea>
+      </div>
+      <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
+      <button type="submit" class="btn btn-primary mt-1 ml-2"><i class="fas fa-play"></i></button>
+    </form>
+  </div>
   
   <br>
   {{#each movie.Comments}}
@@ -67,7 +87,7 @@
   {{/if}}
   
   <blockquote class="blockquote"> 
-  <h5><a href="/users/{{this.User.dataValues.id}}">{{this.User.dataValues.name}}</a></h5>
+  <h5><img src="{{this.User.dataValues.image}}" class="card-img-top rounded-circle" alt="Card image top"><a href="/users/{{this.User.dataValues.id}}">{{this.User.dataValues.name}}</a></h5>
   <p class="d-flex justify-content-between">{{this.dataValues.text}}
   <small class="blockquote-footer">{{momentAgo this.dataValues.createdAt}}</small></p>
   </blockquote>

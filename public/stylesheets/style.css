@@ -1,3 +1,6 @@
+* {
+  border: 1px solid black;
+}
 
 .movie-link {
   text-decoration: none;
@@ -37,5 +40,20 @@
 }
 
 .movie-align-btn {
-  margin-top: 80px;
+  margin-top: 70px;
+}
+
+.movie-icon {
+  display: flex;
+  flex-direction: row;
+  vertical-align:bottom;
+
+}
+.movie-favorite-number, .movie-like-number {
+  vertical-align:bottom;
+}
+
+.rounded-circle {
+  width:50px;
+  border-radius:50%
 }
