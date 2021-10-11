@@ -1,0 +1,41 @@
+
+.movie-link {
+  text-decoration: none;
+}
+
+.movie-link .movie-wrapper {
+  display: flex;
+  background: #f2f3f5;
+  width: 500px;
+  height: 200px;
+}
+
+.movie-link .movie-wrapper .movie-thumbnail img {
+  width: 139px;
+  height: 200px;
+}
+.movie-link .movie-wrapper .movie-description {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #dddfe2;
+  border-bottom: 1px solid #dddfe2;
+}
+
+.movie-link .movie-wrapper .movie-description .movie-title {
+  color: #1d2129;
+  font-weight: bolder;
+  font-size: 17px;
+  line-height: 20px;
+  padding-top: 2px;
+  margin-bottom: 10px;
+} 
+ 
+.movie-link .movie-wrapper .movie-description .movie-desc {
+  color: #606770;
+  font-size: 15px;
+}
+
+.movie-align-btn {
+  margin-top: 80px;
+}

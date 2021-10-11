@@ -2,9 +2,8 @@
   <div class="col-md-4">
     <img src="{{user.image}}" alt="">
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8 mb-3">
     <p>name: {{user.name}}</p>
-    <br>
     <p>email: {{user.email}}</p>
     <p><strong>{{len}}</strong>&nbsp;&nbsp;已評論電影</p>
     <p><strong>{{user.Followings.length}}</strong>&nbsp;&nbsp;自己去追蹤的人</p>
@@ -35,7 +34,7 @@
         {{#each user.Comments}}
         <div class="ml-2">
           <a href="/movies/{{this.Movie.id}}">
-            <img src="{{this.Movie.image}}" alt="{{this.Movie.title}}" width="100px">
+            <img src="{{this.Movie.image}}" alt="{{this.Movie.title}}" width="50px">
           </a>
         </div>
         {{/each}}
@@ -49,7 +48,7 @@
           {{#each user.FavoritedMovies}}
           <div class="ml-2">
             <a href="/movies/{{this.id}}">
-              <img src="{{this.image}}" alt="{{this.title}}" width="100px">
+              <img src="{{this.image}}" alt="{{this.title}}" width="50px">
             </a>
           </div>
           {{/each}}
@@ -66,7 +65,7 @@
         {{#each user.Followings}}
         <div class="ml-2">
           <a href="/users/{{this.id}}">
-            <img src="{{this.image}}" alt="{{this.name}}" width="100px">
+            <img src="{{this.image}}" alt="{{this.name}}" width="50px">
           </a>
         </div>
         {{/each}}
@@ -80,7 +79,7 @@
           {{#each user.Followers}}
           <div class="ml-2">
             <a href="/users/{{this.id}}">
-              <img src="{{this.image}}" alt="{{this.name}}" width="100px">
+              <img src="{{this.image}}" alt="{{this.name}}" width="50px">
             </a>
           </div>
           {{/each}}
