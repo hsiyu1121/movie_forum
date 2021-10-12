@@ -1,5 +1,6 @@
 * {
   border: 1px solid black;
+
 }
 
 .movie-link {
@@ -56,4 +57,27 @@
 .rounded-circle {
   width:50px;
   border-radius:50%
+}
+.movie-image {
+  display: flex;
+  align-items: center;
+  width: 330px;
+  padding-left: 30px;
+}
+.comment-area {
+  display: flex;
+}
+.rounded-circle {
+  width:60px;
+  height: 60px;
+  border-radius:50%;
+}
+.user-name {
+  color: white; 
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+a:hover{
+  text-decoration:none;
 }

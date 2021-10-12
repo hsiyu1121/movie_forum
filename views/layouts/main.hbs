@@ -12,9 +12,9 @@
   <title>電影評論網</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-success">
+  {{!-- <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-success">
     <a href="/" class="navbar-brand">電影評論網</a>
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+    <div class="navbar-collapse offcanvas-collapse">
       <ul class="navbar-nav mr-auto">
       </ul>
       <div class="text-light">
@@ -33,7 +33,65 @@
   
       </div>
     </div>
-  </nav>
+  </nav> --}}
+
+  <div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-success">
+      <a class="navbar-brand" href="/">電影評論網</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#movieNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="movieNavDropdown">
+        
+        <ul class="navbar-nav">
+ 
+          <li class="nav-item dropdown mr-2">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-bars fa-lg text-light"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/movies"><i class="fas fa-home"></i>&ensp;HOME</a>
+              <br>
+              <a class="dropdown-item" href="/movies/topMovie">
+                <i class="fas fa-fire"></i>&ensp;Top Movie
+              </a>
+              <br>
+              <a class="dropdown-item" href="/movies/feeds">
+                <i class="fas fa-fire"></i>&ensp;Feeds
+              </a>
+              <br>
+              <a class="dropdown-item" href="/users/topUser">
+                <i class="fas fa-fire"></i>&ensp;Top Users
+              </a>
+              <br>
+              <a class="dropdown-item" href="/users/{{user.id}}"><i class="far fa-user"></i>&ensp;Profile
+              </a>
+              <br>
+              <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>&ensp;LogOut</a>
+              <br>
+             
+            </div>
+          </li>
+          <li class="user-name">
+            {{#if user.id}}
+            <a href="/users/{{user.id}}" class="text-light">Hi,&nbsp;&nbsp;{{user.name}}</a> 
+            {{/if}}
+
+          </li>
+          <li class="user-name">
+            {{#if user.role}}
+            <a href="/admin" style="color: white; margin-right:10px;">Admin 後台</a>
+            {{/if}}
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto"></ul>
+      </div>
+    </nav>
+
+  </div>
+
   <br>
   <main role="main">
     <div class="album py-5 bg-light">

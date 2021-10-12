@@ -4,10 +4,10 @@
   </nav>
 
   <div class="row no-gutters">
-    <div class="col-sm-4">
-      <img src="{{movie.dataValues.image}}" alt="{{movie.dataValues.title}}" width="300px">
+    <div class="col-sm-4 col-4">
+        <img src="{{movie.dataValues.image}}" alt="{{movie.dataValues.title}}" class="movie-image">
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-8">
       <div class="card-body">
         <h5 class="card-title">Title: &nbsp;{{movie.dataValues.title}}</h5>
         <p class="card-title"><strong>Category:</strong> &nbsp;{{movie.Category.dataValues.name}}</p>
@@ -65,13 +65,14 @@
 </div>
 <hr>
 <br>
-<div class="col-md-12">
-   
+
+<div class="col-md-9">   
   <h4>留下評論</h4>
   <div class="comment-area">
+    <img src="{{user.image}}" class="rounded-circle" alt="{{user.name}}">
     <form action="/comments" method="POST" class="form-inline">
       <div class="form-group">
-        <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="100" rows="2" placeholder="comment something ..."></textarea>
+        <textarea name="text" class="form-control mr-2 mt-1" id="text" cols="60" rows="2" placeholder="comment something ..."></textarea>
       </div>
       <input type="hidden" name="movieId" value="{{movie.dataValues.id}}">
       <button type="submit" class="btn btn-primary mt-1 ml-2"><i class="fas fa-play"></i></button>

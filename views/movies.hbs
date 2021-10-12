@@ -1,109 +1,107 @@
-<a href="/movies/topMovie">top movies</a>||
-<a href="/movies/feeds">feed</a>
-<div class="container mt-5">
-  <!-- search bar -->
-  <div class="row d-flex justify-content-center" style="display:inline;">    
-    <div class="col-md-8">
+<div class="container mt-3">
+    <!-- search bar -->
+    <div class="row d-flex justify-content-between" style="display:inline;">    
+      <div class="col-md-8">
 
-      <form action="/search" method="GET">
-        <div class="input-group mb-3">   
-          <input type="text" name="keyword" class="form-control" value="{{ keyword }}"
-            placeholder="Enter movie name or description to search..." aria-label="Movie Name..." aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary btn-sm" type="submit" id="search-button">Search</button>
+        <form action="/search" method="GET">
+          <div class="input-group mb-3">   
+            <input type="text" name="keyword" class="form-control" value="{{ keyword }}"
+              placeholder="Enter movie name or description to search..." aria-label="Movie Name..." aria-describedby="search-button">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btn-sm" type="submit" id="search-button">Search</button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-3">
-      <div class="dropdown mb-3">
-        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{#if currentSelected}}
-          {{currentSelected}}
-          {{else}}
-          排序
-          {{/if}}
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/sort/title/ASC">名稱: A to Z</a>
-          <a class="dropdown-item" href="/sort/title/DESC">名稱: Z to A</a>
-          <a class="dropdown-item" href="/sort/release_date/ASC">上映日期: 由舊到新</a>
-          <a class="dropdown-item" href="/sort/release_date/DESC">上映日期: 由新到舊</a>
-        </div>
+        </form>
       </div>
-    </div>
-  </div>
-
-
-  <div class="row mb-1 justify-content-center">
-    {{#each movies}}
-    <div class="movie-link  m-2" >
-      <div class="movie-wrapper">
-        <div class="movie-thumbnail">
-          <a href="/movies/{{ this.id }}">
-            <img class="card-img-top" src="{{ this.image }}" alt="Card image cap">
-          </a>
-        </div>
-        <div class="movie-description">
-          <div class="movie-title">{{strLength this.title }}</div>
-          <div class="movie-desc">{{strDesc this.description }}</div>
-          <div class="form-inline movie-align-btn">
-            {{#if this.isFavorite}}
-            <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-sm">
-                <i class="fas fa-thumbs-up text-danger"></i>
-              </button>
-            </form>
+      <div class="col-md-3">
+        <div class="dropdown mb-3">
+          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{#if currentSelected}}
+            {{currentSelected}}
             {{else}}
-            <form action="/favorite/{{this.id}}" method="POST">
-              <button type="submit" class="btn btn-sm">
-                <i class="fas fa-thumbs-up text-secondary"></i>
-              </button>
-            </form>
+            排序
             {{/if}}
-            {{#if this.isLike}}
-            <form action="/like/{{this.id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-sm">
-                <i class="fas fa-heart text-danger"></i>
-              </button>
-            </form>
-            {{else}}
-            <form action="/like/{{this.id}}" method="POST">
-              <button type="submit" class="btn btn-sm">
-                <i class="fas fa-heart text-secondary"></i>
-              </button>
-            </form>
-            {{/if}}
-            {{lenLike}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/sort/title/ASC">名稱: A to Z</a>
+            <a class="dropdown-item" href="/sort/title/DESC">名稱: Z to A</a>
+            <a class="dropdown-item" href="/sort/release_date/ASC">上映日期: 由舊到新</a>
+            <a class="dropdown-item" href="/sort/release_date/DESC">上映日期: 由新到舊</a>
           </div>
         </div>
       </div>
     </div>
-    {{/each}}
-  </div>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center mt-3">
-      <li class="page-item">
-        <a class="page-link" href="/movies?page={{prev}}" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {{#each totalPage}}
-        {{#ifCond this ../page}}
-        <li class="page-item active"><a class="page-link" href="#">{{this}}</a></li>
-        {{else}}
-        <li class="page-item"><a class="page-link" href="/movies?page={{this}}">{{this}}</a></li>
-        {{/ifCond}}
+    <div class="row mb-1 d-flex justify-content-between">
+      {{#each movies}}
+      <div class="movie-link  m-2">
+        <div class="movie-wrapper">
+          <div class="movie-thumbnail">
+            <a href="/movies/{{ this.id }}">
+              <img class="card-img-top" src="{{ this.image }}" alt="Card image cap">
+            </a>
+          </div>
+          <div class="movie-description">
+            <div class="movie-title">{{strLength this.title }}</div>
+            <div class="movie-desc">{{strDesc this.description }}</div>
+            <div class="form-inline movie-align-btn">
+              {{#if this.isFavorite}}
+              <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-thumbs-up text-danger"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/favorite/{{this.id}}" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-thumbs-up text-secondary"></i>
+                </button>
+              </form>
+              {{/if}}
+              {{#if this.isLike}}
+              <form action="/like/{{this.id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-heart text-danger"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/like/{{this.id}}" method="POST">
+                <button type="submit" class="btn btn-sm">
+                  <i class="fas fa-heart text-secondary"></i>
+                </button>
+              </form>
+              {{/if}}
+              {{lenLike}}
+            </div>
+          </div>
+        </div>
+      </div>
       {{/each}}
-      
-      <li class="page-item">
-        <a class="page-link" href="/movies?page={{next}}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    </div>
 
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center mt-3">
+        <li class="page-item">
+          <a class="page-link" href="/movies?page={{prev}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {{#each totalPage}}
+          {{#ifCond this ../page}}
+          <li class="page-item active"><a class="page-link" href="#">{{this}}</a></li>
+          {{else}}
+          <li class="page-item"><a class="page-link" href="/movies?page={{this}}">{{this}}</a></li>
+          {{/ifCond}}
+        {{/each}}
+        
+        <li class="page-item">
+          <a class="page-link" href="/movies?page={{next}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+ 
 </div>
