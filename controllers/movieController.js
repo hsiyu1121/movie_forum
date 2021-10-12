@@ -159,7 +159,6 @@ const movieController = {
         order: [["createdAt", "DESC"]],
         include: [User, Movie],
       }).then((comment) => {
-        console.log(comment);
         return res.render("feeds", { movies, comment });
       });
     });

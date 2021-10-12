@@ -1,23 +1,28 @@
-<h1>最新動態</h1>
+<h1>New Feeds</h1>
 <hr>
 
-<div class="row">
+<div class="row justify-content-around">
   <div class="col-md-6">
     <div class="card">
       <div class="card-header">
-        最新電影
+        New Movie
       </div>
       <div class="card-body">
         {{#each movies}}
-        <div>
-          <h4>
+        <div class="feed-movie">
+          <div class="col-3">
             <a href="/movies/{{this.id}}">
-              {{this.title}}
+              <img src="{{this.image}}" alt="card-img-top" class="card-img-top">
             </a>
-            <small>{{this.Category.name}}</small>
-          </h4>
-          <p>{{this.description}}</p>
-          {{momentAgo this.createdAt}}
+          </div>
+          <div class="col-10">
+            <h4>
+              <a href="/movies/{{this.id}}" class="text-secondary">{{this.title}}</a>
+            </h4>
+            <small>[{{this.Category.name}}]</small>
+            <p>{{ strDesc this.description}}</p>
+            <small>{{momentAgo this.createdAt}}</small>
+          </div> 
         </div>
         {{/each}}
       </div>
@@ -25,21 +30,25 @@
   </div>
   <div class="col-md-6">
     <div class="card">
-      <div class="card-header">最新評論</div>
-      <div class="card-body">
+      <div class="card-header">New Comments</div>
+      <div class="card-body ">
         {{#each comment}}
-        <div>
-          <h4>
-            <a href="/movies/{{this.Movie.id}}" class="nav-link">
-              {{this.Movie.title}}
+        <div class="feed-comment">
+          <div class="col-3">
+            <a href="/movies/{{this.Movie.id}}">
+               <img src="{{this.Movie.image}}" alt="card-img-top">
             </a>
-          </h4>
-          <img src="{{this.Movie.image}}" alt="" width="50px">
-          <p>{{this.text}}</p> by
-          <a href="/users/{{this.User.id}}">
-            {{this.User.name}}
-          </a>
-          at {{momentAgo this.createdAt}}
+          </div>
+          <div class="col-10">
+            <div class="card-title text-secondary"><h4> {{this.Movie.title}} </h4></div>
+            <p>{{this.text}}</p> by
+            <a href="/users/{{this.User.id}}">
+              <span>{{this.User.name}}</span>
+            </a>
+            <small class="ml-2">
+              at {{momentAgo this.createdAt}}
+            </small> 
+          </div>
         </div>
         {{/each}}
       </div>

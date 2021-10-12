@@ -81,3 +81,30 @@
 a:hover{
   text-decoration:none;
 }
+.feed-movie {
+  display: flex;
+}
+.feed-movie img {
+  width: 90px;
+  margin-top: 10px;
+}
+.user-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-image img {
+  width: 180px;
+  height: 180px;
+  border-radius:50%;
+}
+
+.feed-comment{
+  display: flex;
+}
+.feed-comment img {
+  align-items: center;
+  width: 90px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

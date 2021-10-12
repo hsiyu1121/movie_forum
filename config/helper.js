@@ -16,6 +16,6 @@ module.exports = {
     return arr.length > 30 ? arr.slice(0, 30) + "..." : arr;
   },
   strDesc: function (arr) {
-    return arr.length > 8 ? arr.slice(0, 80) + "..." : arr;
+    return arr.length > 80 ? arr.slice(0, 80) + "..." : arr;
   },
 };
