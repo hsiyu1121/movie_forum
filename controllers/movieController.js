@@ -130,6 +130,7 @@ const movieController = {
   },
   getTopMovies: (req, res) => {
     return Movie.findAll({
+      order: [["viewCounts", "DESC"]],
       limit: 10,
       include: [{ model: User, as: "FavoritedUsers" }],
     }).then((movies) => {
@@ -140,7 +141,7 @@ const movieController = {
           movie.id
         ),
       }));
-      movies = movies.sort((a, b) => b.FavoriteCount - a.FavoriteCount);
+      movies = movies.sort((a, b) => b.viewCounts - a.viewCounts);
       return res.render("topMovie", { movies });
     });
   },

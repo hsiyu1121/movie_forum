@@ -2,24 +2,32 @@
 <hr />
 <div class="col">
   {{#each movies}}
-  <div class="card mb-3" style="max-width: 540px;">
+  <div class="card mb-3">
     <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{{this.image}}" class="card-img" style="width:200px;">
+      <div class="col-md-3">
+        <a href="/movies/{{this.id}}" class="btn btn-link">
+          <img src="{{this.image}}" class="card-img" style="width:230px;">
+        </a>
       </div>
       <div class="col-md-8">
         <div class="card-body ml-2">
           <h5 class="card-title">{{this.title}}</h5>
-          <span class="badge badge-secondary">追蹤人數:{{this.FavoriteCount}}</span>
+          <span class="badge badge-primary mb-2">瀏覽人次:{{this.viewCounts}}</span><br>
+          <span class="badge badge-success mb-2">追蹤人數:{{this.FavoriteCount}}</span>
           <p class="card-text">{{this.description}}</p>
-          <a href="/movies/{{this.id}}" class="btn btn-primary" style="display:inline;">show</a>
+          <br><br>
+          
           {{#if this.isFavorited}}
-          <form action="/favorite/{{this.id}}?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-danger">移除最愛</button>
+          <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-sm">
+              <i class="fas fa-thumbs-up text-danger"></i>
+            </button>
           </form>
           {{else}}
-          <form action="/favorite/{{this.id}}" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-primary">加入最愛</button>
+          <form action="/favorite/{{this.id}}" method="POST">
+            <button type="submit" class="btn btn-sm">
+              <i class="fas fa-thumbs-up text-secondary"></i>
+            </button>
           </form>
           {{/if}}
           <p class="card-text mt-1"><small class="text-muted">{{momentAgo this.createdAt}}</small></p>
