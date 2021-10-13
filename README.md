@@ -4,11 +4,25 @@
 ![畫面呈現](/movie_forum.png)
 
    > ### 如何使用 ###
-    * 1. 下載 `` git clone https://github.com/hsiyu1121/movie_forum.git ``
-    * 2. 安裝相關的套件 `` npm install ``
+    * 1. 下載 
+    ``
+    git clone https://github.com/hsiyu1121/movie_forum.git 
+    ``
+    * 2. 安裝相關的套件 
+    `` 
+    npm install 
+    ``
     * 3. 在 /config/config.json 設定好相對應的資料庫名稱
-    * 4. 執行`` npx sequelize db:migrate ``  建立相關的資料表
-    * 5. 執行`` npx sequelize db:seed `` 建立相關的種子資料
+    * 4. 執行
+     `` 
+        npx sequelize db:migrate 
+     ``  
+     建立相關的資料表
+    * 5. 執行
+     `` 
+      npx sequelize db:seed 
+     `` 
+     建立相關的種子資料
  
   > ### 範例帳戶 ###
   > 
