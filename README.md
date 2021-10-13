@@ -4,27 +4,13 @@
 ![畫面呈現](/movie_forum.png)
 
    > ### 如何使用 ###
-    * 1. 下載 
-    ``
-    git clone https://github.com/hsiyu1121/movie_forum.git 
-    ``
-    * 2. 安裝相關的套件 
-    `` 
-    npm install 
-    ``
+    * 1. 下載   git clone https://github.com/hsiyu1121/movie_forum.git
+    * 2. 安裝相關的套件   npm install
     * 3. 在 /config/config.json 設定好相對應的資料庫名稱
-    * 4. 執行
-     `` 
-        npx sequelize db:migrate 
-     ``  
-     建立相關的資料表
-    * 5. 執行
-     `` 
-      npx sequelize db:seed 
-     `` 
-     建立相關的種子資料
+    * 4. 執行   npx sequelize db:migrate 建立相關的資料表
+    * 5. 執行   npx sequelize db:seed  建立相關的種子資料
  
-  > ### 範例帳戶 ###
+  > ### 範例帳戶
   > 
   |    帳號            |      密碼     |
   | :---------------: |   :---------: |
@@ -36,8 +22,8 @@
   | user5@example.com |   12345678    |
 
 
-> ### 使用者故事 ### 
-#### 前台 ####
+> ### 使用者故事  
+#### 前台 
  
 * 使用者可以註冊/登入/登出網站
 * 使用者可以在瀏覽所有電影與個別電影詳細資料
@@ -53,12 +39,12 @@
 * 使用者可以追蹤其他的使用者
 * 使用者可以查看自己追蹤中的使用者與正在追蹤自己的使用者
 
- #### 後台 ####
+ #### 後台 
 
 * 只有網站管理者可以登入網站後台
 * 網站管理者可以在後台管理電影的基本資料
 * 網站管理者可以在後台管理電影分類
 
-#### 製作 ####
+#### 製作 
 email: bluefish1121@yahoo.com.tw
  
