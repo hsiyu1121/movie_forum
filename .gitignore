@@ -94,6 +94,7 @@ upload/
 
 # vs code dist
 *dist/
+*.vscode/*
 
 # test file
 *test.js
