@@ -7,6 +7,8 @@ module.exports = {
       Array.from({ length: 100 }).map((d, i) => ({
         UserId: Math.floor(Math.random() * 6) + 1,
         MovieId: Math.floor(Math.random() * 80) + 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       })),
       {}
     );
