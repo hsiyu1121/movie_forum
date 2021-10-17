@@ -113,7 +113,7 @@ const movieController = {
     try {
       const type = req.params.type;
       const method = req.params.method;
-      const typeObj = { title: title, release_date: release_date };
+      const typeObj = { title: "title", release_date: "release_date" };
       const methodObj = { ASC: "ASC", DESC: "DESC" };
       const currentSelected = [`${typeObj[type]}`, `${methodObj[method]}`];
       Movie.findAll({
