@@ -1,17 +1,22 @@
-'use strict';
-const faker = require('faker');
+"use strict";
+const faker = require("faker");
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {   
-    await queryInterface.bulkInsert('Comments', 
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkInsert(
+      "Comments",
       Array.from({ length: 100 }).map((d, i) => ({
-        text: faker.lorem.paragraph(),
+        text: faker.lorem.sentence(),
         UserId: Math.floor(Math.random() * 6) + 1,
-        MovieId:  Math.floor(Math.random() * 80) + 1,
-      })), {})
+        MovieId: Math.floor(Math.random() * 80) + 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })),
+      {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Comments', null, {})
-  }
+    await queryInterface.bulkDelete("Comments", null, {});
+  },
 };
