@@ -158,6 +158,7 @@ const movieController = {
         nest: true,
         order: [["createdAt", "DESC"]],
         include: [User, Movie],
+        limit: 15,
       }).then((comment) => {
         return res.render("feeds", { movies, comment });
       });
