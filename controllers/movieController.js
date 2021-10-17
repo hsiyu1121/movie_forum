@@ -151,7 +151,7 @@ const movieController = {
       nest: true,
       order: [["createdAt", "DESC"]],
       include: [Category],
-      limit: 10,
+      limit: 15,
     }).then((movies) => {
       Comment.findAll({
         raw: true,
