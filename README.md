@@ -14,6 +14,11 @@
   npx sequelize db:seed
   `` 
   建立相關的種子資料
+  * 6. 執行 ``
+  npm run dev `` (nodemon) or ``
+  npm start `` 讓網站運作起來
+
+  * .env.example檔 在執行前先將.example字樣刪除，填入imgur_client_ID 和 Session_ID
  
   > ### 範例帳戶
   > 
